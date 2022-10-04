@@ -1,0 +1,11 @@
+hydra
+hydra-core
+omegaconf
+torch
+pytorch-lightning
+torchmetrics
+einops
+pydantic
+wandb
+black==21.12b0
+pre-commit

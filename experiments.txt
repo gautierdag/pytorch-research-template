@@ -1,0 +1,3 @@
+python my_project/main.py ++seed=1
+python my_project/main.py ++seed=2
+python my_project/main.py ++seed=3

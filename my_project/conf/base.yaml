@@ -1,0 +1,31 @@
+# needed to validate the config yaml
+defaults:
+  - base_config
+  - _self_
+
+run_name: "base"
+seed: 42
+gpus: "1"
+num_workers: 6
+fast: false
+upload_model: true
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+paths:
+  # path to directory containing input data
+  input_dir: "${hydra:runtime.cwd}/data"
+  # path to directory to save output data
+  output_dir: "${hydra:runtime.cwd}/output"
+
+model:
+  bert_model: "roberta-base"
+  max_seq_length: 200
+  learning_rate: 0.000001
+
+train:
+  batch_size: 16
+  max_epochs: 25
