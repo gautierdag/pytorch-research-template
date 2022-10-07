@@ -1,6 +1,7 @@
 import os
-import wandb
+
 import pytorch_lightning as pl
+import wandb
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
