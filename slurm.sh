@@ -1,11 +1,11 @@
 #!/bin/bash
-# Author(s): James Owers (james.f.owers@gmail.com)
+# Original Author: James Owers (james.f.owers@gmail.com)
 #
 # example usage:
 # ```
 # EXPT_FILE=experiments.txt  # <- this has a command to run on each line
 # NR_EXPTS=`cat ${EXPT_FILE} | wc -l`
-# MAX_PARALLEL_JOBS=3 
+# MAX_PARALLEL_JOBS=3
 # sbatch --array=1-${NR_EXPTS}%${MAX_PARALLEL_JOBS} slurm_arrayjob.sh $EXPT_FILE
 # ```
 #
@@ -45,6 +45,7 @@
 #SBATCH --error="/home/%u/slurm_logs/%A_%a.err"
 
 # 90 seconds before training ends send a SIGUSR1 signal to the process to requeue
+# Note this will only work if you only call trainer.fit() once
 # SBATCH --signal=SIGUSR1@90
 
 # =====================

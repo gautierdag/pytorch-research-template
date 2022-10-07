@@ -1,3 +1,4 @@
+import os
 import wandb
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
@@ -9,6 +10,9 @@ from my_project.model import MyProjectModel
 
 
 def train(cfg: MyProjectConfig) -> None:
+    # ensure wandb cache is in output dir (this gets cluttered rapidly otherwise)
+    os.environ["WANDB_CACHE_DIR"] = str(cfg.paths.output_dir / "wandb")
+
     run_name = f"{cfg.run_name}_{cfg.model.bert_model}_{cfg.seed}"
     checkpoint_path = cfg.paths.output_dir / "checkpoints" / run_name
     unique_run_id = f"{wandb.util.generate_id()}_{cfg.seed}"
