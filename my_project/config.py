@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Optional
 
 # we use pydantic dataclasses to parse Path objects correctly
 from pydantic.dataclasses import dataclass
@@ -13,8 +12,6 @@ class Paths:
 
 @dataclass
 class Model:
-    bert_model: str
-    max_seq_length: int
     learning_rate: float
 
 
@@ -22,7 +19,6 @@ class Model:
 class Train:
     batch_size: int
     max_epochs: int
-    checkpoint_path: Optional[str] = None
 
 
 @dataclass

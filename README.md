@@ -31,7 +31,6 @@ Install the pre-commit hooks:
 pre-commit install
 ```
 
-
 ## Training
 
 ### Local training

@@ -14,7 +14,7 @@ def train(cfg: MyProjectConfig) -> None:
     # ensure wandb cache is in output dir (this gets cluttered rapidly otherwise)
     os.environ["WANDB_CACHE_DIR"] = str(cfg.paths.output_dir / "wandb")
 
-    run_name = f"{cfg.run_name}_{cfg.model.bert_model}_{cfg.seed}"
+    run_name = f"{cfg.run_name}_{cfg.seed}"
     checkpoint_path = cfg.paths.output_dir / "checkpoints" / run_name
     unique_run_id = f"{wandb.util.generate_id()}_{cfg.seed}"
 
@@ -30,18 +30,12 @@ def train(cfg: MyProjectConfig) -> None:
     )
     my_project_datamodule = MyProjectDataModule(
         data_dir_path=cfg.paths.input_dir,
-        output_dir_path=cfg.paths.output_dir,
         batch_size=cfg.train.batch_size,
-        bert_model_name=cfg.model.bert_model,
-        max_seq_length=cfg.model.max_seq_length,
         num_workers=cfg.num_workers,
     )
 
     model = MyProjectModel(
         learning_rate=cfg.model.learning_rate,
-        bert_model_name=cfg.model.bert_model,
-        max_seq_length=cfg.model.max_seq_length,
-        cache_dir=cfg.paths.output_dir / "bert-models",
     )
 
     print("Creating Trainer")
@@ -68,11 +62,5 @@ def train(cfg: MyProjectConfig) -> None:
         datamodule=my_project_datamodule,
         ckpt_path=checkpoint_callback.best_model_path,
     )
-
-    # Save the model as a WANDB artifact
-    if cfg.upload_model:
-        art = wandb.Artifact("my_project_model", type="model")
-        art.add_file(checkpoint_callback.best_model_path)
-        wandb.log_artifact(art)
 
     wandb.finish()

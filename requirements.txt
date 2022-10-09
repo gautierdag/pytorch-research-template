@@ -1,6 +1,7 @@
 hydra-core
 omegaconf
 torch
+torchvision
 pytorch-lightning
 torchmetrics
 einops
